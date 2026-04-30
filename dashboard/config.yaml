@@ -1,5 +1,5 @@
 name: HDMI Status Dashboard
-version: "1.1.3"
+version: "1.1.5"
 slug: hdmi_dashboard
 description: Always-on floor plan status screen on a connected HDMI display.
 url: https://github.com/janko2706/ha-dashboard-addon
@@ -10,9 +10,9 @@ arch:
 # s6-overlay v3 — must be false so s6 is PID 1
 init: false
 
-# Device access: framebuffer + console TTY + input devices
 devices:
-  - /dev/fb0
+  - /dev/dri/card0
+  - /dev/dri/renderD128
   - /dev/tty0
   - /dev/tty1
   - /dev/input
