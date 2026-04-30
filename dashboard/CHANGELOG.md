@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.9
+- Fix black X screen after Xorg starts by launching Chromium with X11/software-rendering-compatible flags instead of EGL/GPU rasterization, and add Chromium startup markers to the add-on log
+- Fix false `Python server never started` readiness failure by replacing the missing `wget` dependency with a Python-based `/config` check, and make Python service startup logs unbuffered
+
 ## 1.1.8
 - Fix fbdev `FBIOPUT_VSCREENINFO: Invalid argument` on KMS-backed `/dev/fb0` by matching Xorg to the framebuffer's apparent 16-bit layout instead of requesting 24/32-bit screen initialization
 

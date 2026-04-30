@@ -1,6 +1,7 @@
 #!/command/with-contenv sh
 
 export DISPLAY=:0
+echo "[svc-chromium] Starting Chromium service on DISPLAY=$DISPLAY"
 
 # Poll until Xorg is accepting connections (up to 60s)
 MAX=120
@@ -17,7 +18,7 @@ echo "[svc-chromium] Xorg ready"
 
 # Poll until Python server is accepting connections (up to 60s)
 CT=0
-until wget -q -O/dev/null http://localhost:8080/config 2>/dev/null; do
+until python3 -c 'import urllib.request; urllib.request.urlopen("http://127.0.0.1:8080/config", timeout=1).read()' >/dev/null 2>&1; do
     sleep 0.5
     CT=$(( CT + 1 ))
     if [ "$CT" -ge "$MAX" ]; then
@@ -34,10 +35,12 @@ unclutter -idle 1 -root &
 eval $(dbus-launch --sh-syntax)
 export DBUS_SESSION_BUS_ADDRESS
 
+echo "[svc-chromium] Launching Chromium kiosk"
 exec chromium \
     --no-sandbox \
     --disable-dev-shm-usage \
     --kiosk \
+    --ozone-platform=x11 \
     --no-first-run \
     --disable-infobars \
     --disable-session-crashed-bubble \
@@ -46,10 +49,13 @@ exec chromium \
     --disable-translate \
     --disable-features=TranslateUI \
     --overscroll-history-navigation=0 \
-    --use-gl=egl \
-    --ignore-gpu-blocklist \
-    --enable-gpu-rasterization \
+    --disable-gpu \
+    --disable-gpu-compositing \
+    --disable-accelerated-2d-canvas \
+    --disable-accelerated-video-decode \
     --check-for-update-interval=31536000 \
+    --window-position=0,0 \
     --window-size=1920,1080 \
+    --user-data-dir=/tmp/chromium-kiosk \
     --app=http://localhost:8080 \
     2>&1

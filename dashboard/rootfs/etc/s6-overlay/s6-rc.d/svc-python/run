@@ -1,2 +1,5 @@
 #!/command/with-contenv sh
-exec python3 /app/server.py 2>&1
+echo "[svc-python] Starting dashboard server"
+echo "[svc-python] OPTIONS_PATH=${OPTIONS_PATH:-/data/options.json} STATIC_DIR=${STATIC_DIR:-/app/dashboard} PORT=${PORT:-8080}"
+ls -ld /app /app/dashboard 2>&1 || true
+exec python3 -u /app/server.py 2>&1
