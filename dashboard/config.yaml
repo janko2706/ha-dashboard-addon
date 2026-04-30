@@ -35,9 +35,7 @@ shm_size: 268435456
 
 options:
   ha_url: "http://homeassistant.local:8123"
-  ha_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkNzVkYjI4MjEyNGY0MDY\
-    2ODg5NjNkMjllMjc0Y2FjNCIsImlhdCI6MTc3NzIyOTI0MiwiZXhwIjoyMDkyNTg5MjQyfQ.fNF\
-    8KntXJ5U0Ng2AQWrhwS3Akx7UIRu7XPiiuahgNcM"
+  ha_token: ""
   humidity_threshold: 70
   weather_entity: ""
   # Lights
