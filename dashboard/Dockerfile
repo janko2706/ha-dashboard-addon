@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     xserver-xorg-video-fbdev \
     xserver-xorg-input-evdev \
     x11-xserver-utils \
-    xdpyinfo \
+    x11-utils \
     chromium \
     unclutter \
     dbus \
