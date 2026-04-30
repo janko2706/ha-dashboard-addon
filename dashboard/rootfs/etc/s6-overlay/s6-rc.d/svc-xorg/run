@@ -3,6 +3,6 @@
 exec Xorg :0 \
     -config /etc/X11/xorg.conf \
     -nolisten tcp \
-    -novtswitch \
+    -sharevts \
     vt1 \
     2>&1
