@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.8
+- Fix fbdev `FBIOPUT_VSCREENINFO: Invalid argument` on KMS-backed `/dev/fb0` by matching Xorg to the framebuffer's apparent 16-bit layout instead of requesting 24/32-bit screen initialization
+
 ## 1.1.7
 - Add Xorg startup diagnostics to the add-on log: print the expected display devices before launch, dump only the last 200 lines of `/var/log/Xorg.0.log` after failure, and pause after failure to avoid restart-loop log spam
 
