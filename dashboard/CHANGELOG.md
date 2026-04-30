@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.10
+- Hide the underlying Linux VT cursor before Xorg starts and reduce Chromium background-service log noise for kiosk mode
+- Disable Chromium Vulkan/WebGPU/on-device model/background network probes and log Chromium's exit status if the kiosk process terminates
+- Replace the HA weather-entity panel with a self-contained Open-Meteo weather widget showing current conditions and only the next two days
+- Use Open-Meteo sunrise/sunset data to show a moon icon for clear current conditions after sunset and before sunrise
+- Switch the weather card's sun glow animation to a moon visual at night while preserving cloud/rain/snow animation combinations
+- Use a blue night background for clear and partly cloudy nighttime weather instead of the daytime yellow glow
+- Restore the ApexCharts 24-hour temperature area chart in the weather widget
+
 ## 1.1.9
 - Fix black X screen after Xorg starts by launching Chromium with X11/software-rendering-compatible flags instead of EGL/GPU rasterization, and add Chromium startup markers to the add-on log
 - Fix false `Python server never started` readiness failure by replacing the missing `wget` dependency with a Python-based `/config` check, and make Python service startup logs unbuffered

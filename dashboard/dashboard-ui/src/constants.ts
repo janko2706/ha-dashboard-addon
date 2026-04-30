@@ -50,11 +50,11 @@ export const ROOM_POLYGONS: Record<string, string> = {
     buero: '190,161 249,161 249,191 190,191',
     hwr: '249,87  281,87  281,116 249,116',
     // L-shaped: main Flur + corridor extension toward Toilette
-    flur: '249,116 296,116 296,140 281,140 281,191 249,191',
+    flur: '249,116 294.697,116 294.697,140 280.113,140 280.113,191 249,191',
     // L-shaped: main room + lower extension above Badezimmer
-    schlafzimmer: '281,87  340,87  340,129 296,129 296,116 281,116',
-    toilette: '281,140 297,140 297,166 281,166',
-    badezimmer: '297,129 340,129 340,165 297,165',
+    schlafzimmer: '281,87 335.152,87 335.152,129 294.767,129 294.767,116 281,116',
+    toilette: '280,140 294.755,140 294.755,166 280,166',
+    badezimmer: '294.823,128.977 335.233,128.977 335.233,165.949 294.823,165.949',
 };
 
 export const ROOMS: Record<string, RoomCfg> = {
@@ -65,13 +65,13 @@ export const ROOMS: Record<string, RoomCfg> = {
         wallGroupId: 'Wohnzimmer',
     },
     schlafzimmer: {
-        highlight: { shape: 'polygon', pts: '281,87 340,87 340,129 296,129 296,115 281,115' },
+        highlight: { shape: 'polygon', pts: '281,87 335.152,87 335.152,129 294.767,129 294.767,116 281,116' },
         bulb: { cx: 318, cy: 105 },
-        climate: { temp: { svgCx: 305, svgCy: 125 }, hum: { svgCx: 330, svgCy: 125 } },
+        climate: { temp: { svgCx: 305, svgCy: 125 }, hum: { svgCx: 328, svgCy: 125 } },
         wallGroupId: 'Schlafzimmer',
     },
     flur: {
-        highlight: { shape: 'polygon', pts: '249,115 296,115 296,140 281,140 281,191 249,191' },
+        highlight: { shape: 'polygon', pts: '249,116 294.697,116 294.697,140 280.113,140 280.113,191 249,191' },
         bulb: { cx: 263, cy: 165 },
         presence: { type: 'dot', cx: 264, cy: 128 },
         wallGroupId: 'Flur',
@@ -79,13 +79,13 @@ export const ROOMS: Record<string, RoomCfg> = {
     toilette: {
         highlight: null,
         bulb: null,
-        presence: { type: 'text', cx: 289, cy: 152 },
+        presence: { type: 'text', cx: 287.5, cy: 150 },
         wallGroupId: 'Toilette',
     },
     badezimmer: {
-        highlight: { shape: 'rect', x: 296, y: 129, w: 43, h: 36 },
+        highlight: { shape: 'rect', x: 294.823, y: 128.977, w: 40.409, h: 36.972 },
         bulb: null,
-        climate: { temp: { svgCx: 308, svgCy: 161 }, hum: { svgCx: 329, svgCy: 161 } },
+        climate: { temp: { svgCx: 305, svgCy: 161 }, hum: { svgCx: 328, svgCy: 161 } },
         wallGroupId: 'Badezimmer',
     },
 };

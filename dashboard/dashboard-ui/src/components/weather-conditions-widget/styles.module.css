@@ -1,0 +1,247 @@
+.weatherWidget {
+  --color: #f4f4f4;
+  --weather-text: #f4f4f4;
+  position: relative;
+  flex: 0 0 440px;
+  width: 440px;
+  height: 703px;
+  overflow: hidden;
+  border: 1px solid #292929;
+  border-radius: 8px;
+  background: #151515;
+  color: var(--weather-text);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+}
+
+.sunnyBackground {
+  background:
+    radial-gradient(circle at 72% 12%, rgba(255, 198, 86, 0.36), transparent 34%),
+    linear-gradient(160deg, #263b3e 0%, #171a1c 58%, #111 100%);
+}
+
+.nightBackground {
+  background:
+    radial-gradient(circle at 72% 12%, rgba(112, 165, 255, 0.3), transparent 35%),
+    radial-gradient(circle at 18% 22%, rgba(55, 94, 160, 0.16), transparent 34%),
+    linear-gradient(160deg, #1d2b46 0%, #131a29 58%, #0f1014 100%);
+}
+
+.cloudyBackground {
+  background:
+    radial-gradient(circle at 75% 10%, rgba(220, 228, 230, 0.14), transparent 38%),
+    linear-gradient(160deg, #334043 0%, #1d2224 58%, #111 100%);
+}
+
+.overcastBackground {
+  background:
+    radial-gradient(circle at 70% 15%, rgba(168, 188, 194, 0.16), transparent 36%),
+    linear-gradient(160deg, #2d383b 0%, #1a2022 58%, #111 100%);
+}
+
+.rainyBackground {
+  background:
+    radial-gradient(circle at 72% 12%, rgba(98, 150, 204, 0.2), transparent 35%),
+    linear-gradient(160deg, #26364a 0%, #171d26 58%, #101113 100%);
+}
+
+.snowyBackground {
+  background:
+    radial-gradient(circle at 72% 12%, rgba(225, 238, 245, 0.22), transparent 35%),
+    linear-gradient(160deg, #354247 0%, #20272b 58%, #111 100%);
+}
+
+.stormyBackground {
+  background:
+    radial-gradient(circle at 72% 12%, rgba(159, 170, 255, 0.2), transparent 34%),
+    linear-gradient(160deg, #27303f 0%, #161922 58%, #0f0f12 100%);
+}
+
+.defaultBackground {
+  background: linear-gradient(160deg, #252c2f 0%, #171b1d 58%, #111 100%);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.eyebrow {
+  color: #9ca9aa;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header h2 {
+  color: #f0f0f0;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.date {
+  color: #b5c0c1;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  padding-top: 4px;
+}
+
+.currentWeather {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "temp icon"
+    "condition condition";
+  justify-content: center;
+  align-items: center;
+  column-gap: 16px;
+  margin-top: 48px;
+  text-align: center;
+}
+
+.currentTemp {
+  grid-area: temp;
+  font-size: 6.3rem;
+  font-weight: 800;
+  line-height: 0.88;
+  font-variant-numeric: tabular-nums;
+}
+
+.currentIcon {
+  grid-area: icon;
+  color: #f6f6f6;
+  font-size: 4.6rem;
+  line-height: 1;
+}
+
+.currentCondition {
+  grid-area: condition;
+  color: #d8d8d8;
+  font-size: 1.28rem;
+  font-weight: 700;
+  margin-top: 14px;
+}
+
+.chartContainer {
+  height: 120px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  margin-top: auto;
+  pointer-events: none;
+}
+
+.chartContainer :global(.apexcharts-canvas),
+.chartContainer :global(.apexcharts-svg) {
+  background: transparent;
+}
+
+.iconGlyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.35));
+}
+
+.forecast {
+  margin-top:40px;
+}
+
+.forecastTitle {
+  color: #a9b3b4;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.forecastGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.forecastDay {
+  min-width: 0;
+  min-height: 186px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.dayLabel {
+  color: #dce3e4;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.forecastIcon {
+  color: #f5f5f5;
+  font-size: 2.4rem;
+  height: 42px;
+  margin-bottom: 10px;
+}
+
+.forecastCondition {
+  color: #d5dada;
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.2;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+}
+
+.forecastTemp {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 1.18rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.lowTemp {
+  color: #9da8aa;
+  font-size: 0.95rem;
+}
+
+.loadingText {
+  position: relative;
+  z-index: 2;
+  color: #cfd6d7;
+  padding: 28px;
+  font-size: 1rem;
+}

@@ -37,7 +37,6 @@ def build_config(opts: dict) -> dict:
         "ha_url":             opts.get("ha_url")   or os.environ.get("HA_URL", ""),
         "ha_token":           opts.get("ha_token") or os.environ.get("HA_TOKEN", ""),
         "humidity_threshold": opts.get("humidity_threshold", 70),
-        "weather_entity":     opts.get("weather_entity", ""),
         "entities": {
             "wohnzimmer": {
                 "light":       opts.get("light_wohnzimmer", ""),

@@ -49,6 +49,20 @@ export const SVGBackground: React.FC = () => {
         svg.querySelectorAll('[id$="_2"]').forEach(el =>
           el.setAttribute('fill', '#4a4a4a'),
         );
+
+        const toiletteLabel = svg.querySelector('#Toilette_2');
+        toiletteLabel?.setAttribute('fill', 'none');
+
+        const wcLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        wcLabel.setAttribute('x', '288');
+        wcLabel.setAttribute('y', '162');
+        wcLabel.setAttribute('text-anchor', 'middle');
+        wcLabel.setAttribute('font-size', '4');
+        wcLabel.setAttribute('font-family', 'DejaVu Sans, sans-serif');
+        wcLabel.setAttribute('font-weight', '700');
+        wcLabel.setAttribute('fill', '#4a4a4a');
+        wcLabel.textContent = 'WC';
+        svg.appendChild(wcLabel);
       });
   }, []);
 

@@ -12,7 +12,6 @@ export interface DashConfig {
   ha_url: string;
   ha_token: string;
   humidity_threshold?: number;
-  weather_entity?: string;
   entities?: EntityConfig;
 }
 

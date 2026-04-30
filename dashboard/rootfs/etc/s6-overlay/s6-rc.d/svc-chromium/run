@@ -36,7 +36,7 @@ eval $(dbus-launch --sh-syntax)
 export DBUS_SESSION_BUS_ADDRESS
 
 echo "[svc-chromium] Launching Chromium kiosk"
-exec chromium \
+chromium \
     --no-sandbox \
     --disable-dev-shm-usage \
     --kiosk \
@@ -46,16 +46,29 @@ exec chromium \
     --disable-session-crashed-bubble \
     --disable-restore-session-state \
     --noerrdialogs \
+    --disable-background-networking \
+    --disable-component-update \
+    --disable-default-apps \
+    --disable-domain-reliability \
+    --disable-extensions \
+    --disable-sync \
     --disable-translate \
-    --disable-features=TranslateUI \
+    --disable-features=TranslateUI,MediaRouter,OptimizationHints,PushMessaging,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE,WebGPU,DawnGraphite,OptimizationGuideModelDownloading,OnDeviceModelExecution \
     --overscroll-history-navigation=0 \
     --disable-gpu \
     --disable-gpu-compositing \
+    --disable-vulkan \
     --disable-accelerated-2d-canvas \
     --disable-accelerated-video-decode \
+    --disable-client-side-phishing-detection \
+    --safebrowsing-disable-auto-update \
     --check-for-update-interval=31536000 \
     --window-position=0,0 \
     --window-size=1920,1080 \
     --user-data-dir=/tmp/chromium-kiosk \
     --app=http://localhost:8080 \
     2>&1
+
+STATUS=$?
+echo "[svc-chromium] Chromium exited with status $STATUS"
+exit "$STATUS"

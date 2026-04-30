@@ -1,5 +1,5 @@
 name: HDMI Status Dashboard
-version: "1.1.9"
+version: "1.1.10"
 slug: hdmi_dashboard
 description: Always-on floor plan status screen on a connected HDMI display.
 url: https://github.com/janko2706/ha-dashboard-addon
@@ -34,7 +34,6 @@ options:
   ha_url: "http://homeassistant.local:8123"
   ha_token: ""
   humidity_threshold: 70
-  weather_entity: ""
   # Lights
   light_wohnzimmer: "light.wohnzimmer"
   light_schlafzimmer: "light.schlafzimmer"
@@ -56,7 +55,6 @@ schema:
   ha_url: url
   ha_token: str
   humidity_threshold: int
-  weather_entity: str
   light_wohnzimmer: str
   light_schlafzimmer: str
   light_flur: str
