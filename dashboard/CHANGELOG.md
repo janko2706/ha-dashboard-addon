@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.6
+- Fix "no screens found": revert to fbdev driver with /dev/fb0 exposed to container (was missing from devices list — root cause of original 1.1.4 failure); drop hardcoded Modes from xorg.conf so fbdev auto-detects framebuffer resolution, immune to kernel cmdline resolution changes
+
 ## 1.1.5
 - Fix "AddScreen/ScreenInit failed for driver 0": expose /dev/dri/renderD128 (GPU render node) to the container — modesetting driver requires both card0 and renderD128; add AccelMethod=none fallback to avoid render-node dependency
 
