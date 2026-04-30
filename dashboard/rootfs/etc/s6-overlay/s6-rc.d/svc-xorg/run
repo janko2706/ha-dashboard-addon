@@ -1,0 +1,8 @@
+#!/command/with-contenv sh
+# vt1 is mandatory — Xorg fails with "Cannot open virtual console" inside Docker without it
+exec Xorg :0 \
+    -config /etc/X11/xorg.conf \
+    -nolisten tcp \
+    -novtswitch \
+    vt1 \
+    2>&1

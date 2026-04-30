@@ -1,0 +1,76 @@
+name: HDMI Status Dashboard
+version: "1.1.0"
+slug: hdmi_dashboard
+description: Always-on floor plan status screen on a connected HDMI display.
+url: https://github.com/janko2706/ha-dashboard-addon
+
+arch:
+  - aarch64
+
+# s6-overlay v3 — must be false so s6 is PID 1
+init: false
+
+# Device access: framebuffer + console TTY + input devices
+devices:
+  - /dev/fb0
+  - /dev/tty0
+  - /dev/tty1
+  - /dev/input
+
+# SYS_TTY_CONFIG lets Xorg open /dev/tty0 from inside Docker
+privileged:
+  - SYS_TTY_CONFIG
+
+# Injects SUPERVISOR_TOKEN env var for HA API access
+homeassistant_api: true
+
+# Dashboard web server (also used by the local Chromium kiosk)
+ports:
+  8080/tcp: 8080
+ports_description:
+  8080/tcp: Dashboard web server
+
+# 256 MB /dev/shm — Chromium crashes with OOM on the default 64 MB
+shm_size: 268435456
+
+options:
+  ha_url: "http://homeassistant.local:8123"
+  ha_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkNzVkYjI4MjEyNGY0MDY\
+    2ODg5NjNkMjllMjc0Y2FjNCIsImlhdCI6MTc3NzIyOTI0MiwiZXhwIjoyMDkyNTg5MjQyfQ.fNF\
+    8KntXJ5U0Ng2AQWrhwS3Akx7UIRu7XPiiuahgNcM"
+  humidity_threshold: 70
+  weather_entity: ""
+  # Lights
+  light_wohnzimmer: "light.wohnzimmer"
+  light_schlafzimmer: "light.schlafzimmer"
+  light_flur: "light.flur"
+  light_toilette: "light.toilette"
+  # Presence sensors
+  presence_flur: "binary_sensor.presence_flur"
+  presence_toilette: "binary_sensor.presence_toilette"
+  # Temperature sensors
+  temperature_wohnzimmer: "sensor.temperature_wohnzimmer"
+  temperature_schlafzimmer: "sensor.temperature_schlafzimmer"
+  temperature_badezimmer: "sensor.temperature_badezimmer"
+  # Humidity sensors
+  humidity_wohnzimmer: "sensor.humidity_wohnzimmer"
+  humidity_schlafzimmer: "sensor.humidity_schlafzimmer"
+  humidity_badezimmer: "sensor.humidity_badezimmer"
+
+schema:
+  ha_url: url
+  ha_token: str
+  humidity_threshold: int
+  weather_entity: str
+  light_wohnzimmer: str
+  light_schlafzimmer: str
+  light_flur: str
+  light_toilette: str
+  presence_flur: str
+  presence_toilette: str
+  temperature_wohnzimmer: str
+  temperature_schlafzimmer: str
+  temperature_badezimmer: str
+  humidity_wohnzimmer: str
+  humidity_schlafzimmer: str
+  humidity_badezimmer: str

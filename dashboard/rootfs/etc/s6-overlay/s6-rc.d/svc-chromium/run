@@ -1,0 +1,55 @@
+#!/command/with-contenv sh
+
+export DISPLAY=:0
+
+# Poll until Xorg is accepting connections (up to 60s)
+MAX=120
+CT=0
+until xdpyinfo >/dev/null 2>&1; do
+    sleep 0.5
+    CT=$(( CT + 1 ))
+    if [ "$CT" -ge "$MAX" ]; then
+        echo "[svc-chromium] FATAL: Xorg never became ready on :0"
+        exit 1
+    fi
+done
+echo "[svc-chromium] Xorg ready"
+
+# Poll until Python server is accepting connections (up to 60s)
+CT=0
+until wget -q -O/dev/null http://localhost:8080/config 2>/dev/null; do
+    sleep 0.5
+    CT=$(( CT + 1 ))
+    if [ "$CT" -ge "$MAX" ]; then
+        echo "[svc-chromium] FATAL: Python server never started"
+        exit 1
+    fi
+done
+echo "[svc-chromium] Python server ready"
+
+# Hide mouse cursor after 1 second of inactivity (no pointer on this kiosk)
+unclutter -idle 1 -root &
+
+# Chromium requires a D-Bus session bus
+eval $(dbus-launch --sh-syntax)
+export DBUS_SESSION_BUS_ADDRESS
+
+exec chromium \
+    --no-sandbox \
+    --disable-dev-shm-usage \
+    --kiosk \
+    --no-first-run \
+    --disable-infobars \
+    --disable-session-crashed-bubble \
+    --disable-restore-session-state \
+    --noerrdialogs \
+    --disable-translate \
+    --disable-features=TranslateUI \
+    --overscroll-history-navigation=0 \
+    --use-gl=egl \
+    --ignore-gpu-blocklist \
+    --enable-gpu-rasterization \
+    --check-for-update-interval=31536000 \
+    --window-size=1920,1080 \
+    --app=http://localhost:8080 \
+    2>&1

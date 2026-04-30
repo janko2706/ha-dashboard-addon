@@ -1,0 +1,334 @@
+:root {
+  --bg-base: #0d0d0d;
+  --text:    #e4e4e4;
+  --muted:   #777;
+  --ok:      #4ade80;
+  --warn:    #f0a040;
+  --error:   #f87171;
+  --border:  #333;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  width:      1920px;
+  height:     1080px;
+  overflow:   hidden;
+  background: var(--bg-base);
+  color:      var(--text);
+  font-family: "DejaVu Sans", "Noto Sans", sans-serif;
+  font-size:  16px;
+  display:    flex;
+  flex-direction: column;
+}
+
+/* ── Top bar ─────────────────────────────────────────────────────────────── */
+.topbar {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  height:          56px;
+  padding:         0 24px;
+  background:      #111;
+  border-bottom:   1px solid var(--border);
+  flex-shrink:     0;
+}
+
+.topbar__title  { font-size: 1.25rem; font-weight: 600; letter-spacing: 0.05em; }
+.topbar__time   { font-size: 1.5rem;  font-weight: 700; font-variant-numeric: tabular-nums; }
+.topbar__status { font-size: 0.875rem; color: var(--muted); min-width: 200px; text-align: right; }
+.topbar__status.status--ok    { color: var(--ok); }
+.topbar__status.status--warn  { color: var(--warn); }
+.topbar__status.status--error { color: var(--error); }
+
+/* ── Floor plan container ────────────────────────────────────────────────── */
+.dashboard-main {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             48px;
+  width:           1920px;
+  height:          calc(1080px - 56px);
+  padding:         52px 56px 44px;
+  overflow:        hidden;
+}
+
+.floorplan-area {
+  flex:            0 0 1320px;
+  display:         flex;
+  justify-content: flex-end;
+  align-items:     center;
+  height:          100%;
+}
+
+#floorplan {
+  position: relative;
+  width:    1320px;
+  height:   703px;
+  overflow: hidden;
+}
+
+/* ── Weather panel ──────────────────────────────────────────────────────── */
+.weather-panel {
+  flex:           0 0 440px;
+  height:         703px;
+  display:        flex;
+  flex-direction: column;
+  padding:        30px;
+  border:         1px solid #292929;
+  border-radius:  8px;
+  background:     #151515;
+  box-shadow:     inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.weather-panel__header {
+  margin-bottom: 28px;
+}
+
+.weather-panel__eyebrow {
+  color:          #8b9a9c;
+  font-size:      0.78rem;
+  font-weight:    700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom:  8px;
+}
+
+.weather-panel h2 {
+  color:       #f0f0f0;
+  font-size:   2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.weather-current {
+  display:     flex;
+  align-items: center;
+  gap:         20px;
+}
+
+.weather-current__icon {
+  width:           112px;
+  height:          112px;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  border-radius:   50%;
+  background:      #202020;
+  border:          1px solid #343434;
+}
+
+.weather-current__reading {
+  min-width: 0;
+}
+
+.weather-current__temp {
+  display:              block;
+  color:                #f4f4f4;
+  font-size:            4.6rem;
+  font-weight:          800;
+  line-height:          0.92;
+  font-variant-numeric: tabular-nums;
+}
+
+.weather-current__condition {
+  display:     block;
+  color:       #d4d4d4;
+  font-size:   1.16rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top:  8px;
+}
+
+.weather-current__description {
+  color:       #a4a4a4;
+  min-height:  52px;
+  font-size:   1rem;
+  line-height: 1.5;
+  margin-top:  24px;
+}
+
+.weather-metrics {
+  display:               grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:                   1px;
+  overflow:              hidden;
+  border:                1px solid #2e2e2e;
+  border-radius:         6px;
+  background:            #2e2e2e;
+  margin-top:            24px;
+}
+
+.weather-metrics > div {
+  min-width:      0;
+  padding:        14px 12px;
+  background:     #191919;
+}
+
+.weather-metrics span {
+  display:       block;
+  color:         #7f8a8b;
+  font-size:     0.76rem;
+  line-height:   1.2;
+  margin-bottom: 8px;
+}
+
+.weather-metrics strong {
+  display:              block;
+  color:                #e8e8e8;
+  font-size:            1.04rem;
+  font-weight:          700;
+  line-height:          1.15;
+  font-variant-numeric: tabular-nums;
+  white-space:          nowrap;
+}
+
+.weather-forecast {
+  margin-top:  auto;
+  padding-top: 26px;
+}
+
+.weather-forecast__title {
+  color:          #a9b3b4;
+  font-size:      0.85rem;
+  font-weight:    700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom:  12px;
+}
+
+.weather-day {
+  display:       flex;
+  align-items:   center;
+  gap:           14px;
+  padding:       18px 0;
+  border-top:    1px solid #2c2c2c;
+}
+
+.weather-day--empty {
+  color: #777;
+}
+
+.weather-day .weather-icon {
+  flex:   0 0 52px;
+  width:  52px;
+  height: 52px;
+}
+
+.weather-day__body {
+  min-width: 0;
+  flex:      1;
+}
+
+.weather-day__topline {
+  display:         flex;
+  align-items:     baseline;
+  justify-content: space-between;
+  gap:             12px;
+  color:           #efefef;
+  font-size:       1rem;
+  font-weight:     700;
+  line-height:     1.2;
+}
+
+.weather-day__topline strong {
+  font-size:            1.08rem;
+  font-variant-numeric: tabular-nums;
+  white-space:          nowrap;
+}
+
+.weather-day__condition {
+  color:       #c7c7c7;
+  font-size:   0.95rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top:  5px;
+}
+
+.weather-day__detail {
+  color:       #8a8a8a;
+  font-size:   0.86rem;
+  line-height: 1.35;
+  margin-top:  5px;
+}
+
+.weather-icon {
+  width:          72px;
+  height:         72px;
+  fill:           none;
+  stroke:         currentColor;
+  stroke-width:   4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color:          #aeb7b9;
+}
+
+.weather-icon--sunny {
+  color: #d7b35a;
+}
+
+.weather-icon--night {
+  color: #9db0d0;
+}
+
+.weather-icon--cloudy {
+  color: #aeb7b9;
+}
+
+.weather-icon--rainy {
+  color: #6fa9ba;
+}
+
+.weather-icon--snowy {
+  color: #c5d9e0;
+}
+
+.weather-icon--stormy {
+  color: #c9b268;
+}
+
+.weather-icon--foggy {
+  color: #9ea6a6;
+}
+
+.weather-icon--windy {
+  color: #8fc0b2;
+}
+
+/* ── Humidity alert blink ────────────────────────────────────────────────── */
+@keyframes hum-blink {
+  0%, 100% { fill-opacity: 0.04; }
+  50%       { fill-opacity: 0.20; }
+}
+
+/* ── Chart.js gauge widgets ──────────────────────────────────────────────── */
+.gauge-wrap {
+  position:       absolute;
+  width:          130px;
+  text-align:     center;
+  pointer-events: none;
+}
+
+.gauge-val {
+  font-family: "DejaVu Sans", sans-serif;
+  font-size:   18px;
+  font-weight: 600;
+  color:       #c0c0c0;
+  line-height: 1;
+  margin-top:  -14px;
+}
+
+.gauge-label {
+  font-family: "DejaVu Sans", sans-serif;
+  font-size:   11px;
+  color:       #555;
+  margin-top:  3px;
+}
+
+/* ── Config / boot error ─────────────────────────────────────────────────── */
+.cfg-error {
+  color:       var(--error);
+  padding:     2rem;
+  font-size:   1.1rem;
+  line-height: 1.6;
+}
