@@ -17,9 +17,8 @@ devices:
   - /dev/tty1
   - /dev/input
 
-# SYS_TTY_CONFIG lets Xorg open /dev/tty0 from inside Docker
 privileged:
-  - SYS_TTY_CONFIG
+  - SYS_ADMIN
 
 # Injects SUPERVISOR_TOKEN env var for HA API access
 homeassistant_api: true
