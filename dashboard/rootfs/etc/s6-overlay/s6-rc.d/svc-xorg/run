@@ -1,5 +1,9 @@
 #!/command/with-contenv sh
 # vt1 is mandatory — Xorg fails with "Cannot open virtual console" inside Docker without it
+echo "[svc-xorg] Starting Xorg diagnostic build"
+echo "[svc-xorg] Checking display devices"
+ls -l /dev/fb0 /dev/tty0 /dev/tty1 2>&1 || true
+
 Xorg :0 \
     -config /etc/X11/xorg.conf \
     -nolisten tcp \
@@ -10,7 +14,10 @@ Xorg :0 \
 STATUS=$?
 
 echo "[svc-xorg] Xorg exited with status $STATUS"
-echo "[svc-xorg] Dumping /var/log/Xorg.0.log"
-cat /var/log/Xorg.0.log 2>/dev/null || echo "[svc-xorg] No /var/log/Xorg.0.log found"
+echo "[svc-xorg] Dumping last 200 lines of /var/log/Xorg.0.log"
+tail -n 200 /var/log/Xorg.0.log 2>/dev/null || echo "[svc-xorg] No /var/log/Xorg.0.log found"
+
+echo "[svc-xorg] Sleeping after Xorg failure to avoid flooding the add-on log"
+sleep 3600
 
 exit "$STATUS"

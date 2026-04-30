@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.7
+- Add Xorg startup diagnostics to the add-on log: print the expected display devices before launch, dump only the last 200 lines of `/var/log/Xorg.0.log` after failure, and pause after failure to avoid restart-loop log spam
+
 ## 1.1.6
 - Fix "no screens found": revert to fbdev driver with /dev/fb0 exposed to container (was missing from devices list — root cause of original 1.1.4 failure); drop hardcoded Modes from xorg.conf so fbdev auto-detects framebuffer resolution, immune to kernel cmdline resolution changes
 
