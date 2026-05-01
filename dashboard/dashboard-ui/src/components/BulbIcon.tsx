@@ -20,11 +20,16 @@ function resolveColor(state: HAState | undefined): { fill: string; glow: boolean
 
 export const BulbIcon: React.FC<{ cfg: BulbCfg; state: HAState | undefined }> = ({ cfg, state }) => {
   const { fill, glow } = resolveColor(state);
-  return (
-    <g transform={`translate(${cfg.cx},${cfg.cy})`}>
+  const inner = (
+    <>
       <circle cx={0} cy={-2} r={2.8} fill={fill} filter={glow ? 'url(#glow)' : undefined} />
       <rect x={-1.5} y={0.8} width={3}   height={1.2} rx={0.3} fill="#666" />
       <rect x={-1.1} y={2.1} width={2.2} height={0.9} rx={0.3} fill="#666" />
+    </>
+  );
+  return (
+    <g transform={`translate(${cfg.cx},${cfg.cy})`}>
+      {cfg.scale ? <g transform={`scale(${cfg.scale})`}>{inner}</g> : inner}
     </g>
   );
 };

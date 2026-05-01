@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.11
+- Add sun/moon arc strip above the floor plan and weather cards: a 1808 px wide SVG that tracks the current sun (or moon at night) position along the horizon using the display's physical orientation (back faces 156° SE) as the reference direction
+- Sun arc shows today's path from sunrise to sunset with a past/future gradient, a glowing sun icon with rays, altitude-based vertical position, and sunrise/sunset time labels
+- Moon arc mirrors the sun arc at night with the actual moon position (Meeus simplified algorithm, ~1° accuracy), a phase-accurate SVG disc (crescent/quarter/gibbous/full rendered via two-arc terminator technique), moonrise/moonset labels, and a cool blue-silver colour scheme
+- Add second ambient-light bulb slot (`bulb2`) to Wohnzimmer, positioned in the top-right corner at 65% scale; wired to a new `ambient_wohnzimmer` option so it reflects the switch state independently of the main ceiling light
+- Add `ambient` field to `EntitySet` and map `ambient_wohnzimmer` option through `server.py` → `/config` response
+- Fix display blanking: disable X screen saver timer (`xset s off`), framebuffer blanking (`xset s noblank`), and DPMS at runtime (`xset -dpms`) to prevent the monitor from dropping signal after ~10 minutes of kiosk inactivity
+
 ## 1.1.10
 - Hide the underlying Linux VT cursor before Xorg starts and reduce Chromium background-service log noise for kiosk mode
 - Disable Chromium Vulkan/WebGPU/on-device model/background network probes and log Chromium's exit status if the kiosk process terminates

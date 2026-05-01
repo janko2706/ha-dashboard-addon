@@ -40,6 +40,7 @@ def build_config(opts: dict) -> dict:
         "entities": {
             "wohnzimmer": {
                 "light":       opts.get("light_wohnzimmer", ""),
+                "ambient":     opts.get("ambient_wohnzimmer", ""),
                 "temperature": opts.get("temperature_wohnzimmer", ""),
                 "humidity":    opts.get("humidity_wohnzimmer", ""),
             },

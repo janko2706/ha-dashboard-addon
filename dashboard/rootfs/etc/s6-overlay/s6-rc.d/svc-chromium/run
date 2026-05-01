@@ -16,6 +16,14 @@ until xdpyinfo >/dev/null 2>&1; do
 done
 echo "[svc-chromium] Xorg ready"
 
+# Disable X screen saver blanking and DPMS at runtime.
+# xorg.conf disables the DPMS protocol extension, but the X server's built-in
+# screen-saver timer (default 600 s) is independent — it blanks the framebuffer
+# after 10 min of no input, causing the monitor to report "no signal".
+xset s off
+xset -dpms
+xset s noblank
+
 # Poll until Python server is accepting connections (up to 60s)
 CT=0
 until python3 -c 'import urllib.request; urllib.request.urlopen("http://127.0.0.1:8080/config", timeout=1).read()' >/dev/null 2>&1; do

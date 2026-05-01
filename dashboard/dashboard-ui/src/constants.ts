@@ -17,7 +17,7 @@ export function svgToScreen(svgX: number, svgY: number): { x: number; y: number 
 
 export interface DialCfg { svgCx: number; svgCy: number; }
 export interface ClimateCfg { temp: DialCfg; hum: DialCfg; }
-export interface BulbCfg { cx: number; cy: number; }
+export interface BulbCfg { cx: number; cy: number; scale?: number; }
 export interface PresenceCfg { type: 'dot' | 'text'; cx: number; cy: number; }
 
 export type HighlightCfg =
@@ -28,6 +28,7 @@ export type HighlightCfg =
 export interface RoomCfg {
     highlight: HighlightCfg;
     bulb: BulbCfg | null;
+    bulb2?: BulbCfg;
     presence?: PresenceCfg;
     climate?: ClimateCfg;
     wallGroupId: string;
@@ -61,19 +62,20 @@ export const ROOMS: Record<string, RoomCfg> = {
     wohnzimmer: {
         highlight: { shape: 'rect', x: 190, y: 87, w: 58, h: 43 },
         bulb: { cx: 219, cy: 109 },
+        bulb2: { cx: 234, cy: 93, scale: 0.65 },
         climate: { temp: { svgCx: 204, svgCy: 127 }, hum: { svgCx: 234, svgCy: 127 } },
         wallGroupId: 'Wohnzimmer',
     },
     schlafzimmer: {
         highlight: { shape: 'polygon', pts: '281,87 335.152,87 335.152,129 294.767,129 294.767,116 281,116' },
-        bulb: { cx: 318, cy: 105 },
+        bulb: { cx: 310, cy: 105 },
         climate: { temp: { svgCx: 305, svgCy: 125 }, hum: { svgCx: 328, svgCy: 125 } },
         wallGroupId: 'Schlafzimmer',
     },
     flur: {
         highlight: { shape: 'polygon', pts: '249,116 294.697,116 294.697,140 280.113,140 280.113,191 249,191' },
-        bulb: { cx: 263, cy: 165 },
-        presence: { type: 'dot', cx: 264, cy: 128 },
+        bulb: { cx: 263, cy: 135 },
+        presence: { type: 'dot', cx: 264, cy: 119 },
         wallGroupId: 'Flur',
     },
     toilette: {

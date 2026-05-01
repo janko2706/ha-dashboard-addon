@@ -3,6 +3,7 @@ import { DashConfig, ConnectionStatus } from './types';
 import { useHAWebSocket } from './hooks/useHAWebSocket';
 import { TopBar } from './components/TopBar';
 import { FloorPlanView } from './components/FloorPlanView';
+import { SunArc } from './components/SunArc';
 import WeatherConditionsWidget from './components/weather-conditions-widget';
 
 export default function App() {
@@ -44,13 +45,16 @@ export default function App() {
             <TopBar status={wsStatus} />
             {config && (
                 <main className="dashboard-main">
-                    <WeatherConditionsWidget />
-                    <div className="floorplan-area">
-                        <FloorPlanView
-                            haStates={haStates}
-                            entityConfig={config.entities ?? {}}
-                            humidityThreshold={config.humidity_threshold ?? 70}
-                        />
+                    <SunArc />
+                    <div className="cards-row">
+                        <WeatherConditionsWidget />
+                        <div className="floorplan-area">
+                            <FloorPlanView
+                                haStates={haStates}
+                                entityConfig={config.entities ?? {}}
+                                humidityThreshold={config.humidity_threshold ?? 70}
+                            />
+                        </div>
                     </div>
                 </main>
             )}

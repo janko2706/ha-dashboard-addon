@@ -19,6 +19,7 @@ export type EntityConfig = Record<string, EntitySet>;
 
 export interface EntitySet {
   light?: string;
+  ambient?: string;
   temperature?: string;
   humidity?: string;
   presence?: string;

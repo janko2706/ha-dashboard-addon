@@ -77,10 +77,13 @@ export const SVGOverlay: React.FC<Props> = ({
             const lightState = ents.light ? haStates[ents.light] : undefined;
             const presenceState = ents.presence ? haStates[ents.presence] : undefined;
 
+            const ambientState = ents.ambient ? haStates[ents.ambient] : undefined;
+
             return (
                 <g key={room}>
                     {cfg.highlight && <HumidityHighlight cfg={cfg.highlight} active={humAlert} />}
                     {cfg.bulb && <BulbIcon cfg={cfg.bulb} state={lightState} />}
+                    {cfg.bulb2 && <BulbIcon cfg={cfg.bulb2} state={ambientState} />}
                     {cfg.presence && <PresenceIndicator cfg={cfg.presence} state={presenceState} />}
                 </g>
             );
