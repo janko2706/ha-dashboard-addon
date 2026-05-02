@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.14
+- Revert screen-size workarounds from 1.1.12 and 1.1.13: remove CSS transform scale from app.js, restore `width=1920` viewport meta, and restore `--window-size=1920,1080` / `--window-position=0,0` Chromium flags
+- The proper fix for 640×800 boot resolution remains adding `hdmi_force_hotplug=1`, `hdmi_group=1`, `hdmi_mode=16` to `/boot/firmware/config.txt` on the Pi
+
 ## 1.1.13
 - Fix "zoomed in" display when Pi boots at 640×800: replace broken xorg.conf Virtual override and Chromium window-size approach with a CSS transform scale in app.js that shrinks the 1920×1080 canvas to fit whatever resolution the framebuffer actually reports
 - Change viewport meta to `width=device-width, initial-scale=1` so Chromium uses the real screen width rather than a fixed 1920px viewport

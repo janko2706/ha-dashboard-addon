@@ -1,5 +1,5 @@
 name: HDMI Status Dashboard
-version: "1.1.13"
+version: "1.1.14"
 slug: hdmi_dashboard
 description: Always-on floor plan status screen on a connected HDMI display.
 url: https://github.com/janko2706/ha-dashboard-addon
