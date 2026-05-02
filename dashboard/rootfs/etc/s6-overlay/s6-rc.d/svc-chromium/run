@@ -71,8 +71,6 @@ chromium \
     --disable-client-side-phishing-detection \
     --safebrowsing-disable-auto-update \
     --check-for-update-interval=31536000 \
-    --window-position=0,0 \
-    --window-size=1920,1080 \
     --user-data-dir=/tmp/chromium-kiosk \
     --app=http://localhost:8080 \
     2>&1

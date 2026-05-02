@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.12
+- Fix display scaling regression: remove `--window-size=1920,1080` and `--window-position=0,0` from the Chromium kiosk command; these flags forced the CSS viewport to 1920×1080 regardless of the actual Xorg display resolution, breaking the `<meta name="viewport" content="width=1920">` scale-to-fit that made the app render correctly on sub-1080p displays (e.g. 640×800)
+
 ## 1.1.11
 - Add sun/moon arc strip above the floor plan and weather cards: a 1808 px wide SVG that tracks the current sun (or moon at night) position along the horizon using the display's physical orientation (back faces 156° SE) as the reference direction
 - Sun arc shows today's path from sunrise to sunset with a past/future gradient, a glowing sun icon with rays, altitude-based vertical position, and sunrise/sunset time labels
