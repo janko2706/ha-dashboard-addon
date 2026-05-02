@@ -28,6 +28,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     chromium \
     unclutter \
     dbus \
+    dbus-x11 \
+    fbset \
     python3 \
     fonts-dejavu-core \
     fonts-noto \

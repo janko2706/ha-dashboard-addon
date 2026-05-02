@@ -11,6 +11,26 @@ log_xset_state() {
     done
 }
 
+run_xset_guard() {
+    DESC="$1"
+    shift
+    echo "[svc-chromium] Applying display guard ($DESC): xset $*"
+    OUTPUT="$(xset "$@" 2>&1)"
+    STATUS="$?"
+
+    if [ "$STATUS" -ne 0 ]; then
+        echo "[svc-chromium] WARNING: xset $* failed with status $STATUS"
+    fi
+
+    if [ -n "$OUTPUT" ]; then
+        echo "$OUTPUT" | while IFS= read -r line; do
+            echo "[svc-chromium]   $line"
+        done
+    fi
+
+    log_xset_state "after xset $*"
+}
+
 monitor_xset_state() {
     while true; do
         sleep 300
@@ -37,9 +57,11 @@ log_xset_state "before kiosk blanking guard"
 # the framebuffer after 10 min of no input, causing the monitor to report
 # "no signal". Keep the DPMS extension available so the dashboard can later
 # force the display off/on when presence-based power control is enabled.
-xset s off 2>&1 || echo "[svc-chromium] WARNING: xset s off failed"
-xset s noblank 2>&1 || echo "[svc-chromium] WARNING: xset s noblank failed"
-xset -dpms 2>&1 || echo "[svc-chromium] WARNING: xset -dpms failed"
+run_xset_guard "set screen saver timeout to zero" s 0 0
+run_xset_guard "disable screen saver timer" s off
+run_xset_guard "disable screen saver blanking" s noblank
+run_xset_guard "set DPMS timeouts to zero" dpms 0 0 0
+run_xset_guard "disable automatic DPMS" -dpms
 log_xset_state "after kiosk blanking guard"
 monitor_xset_state &
 MONITOR_PID="$!"

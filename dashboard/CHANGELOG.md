@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.16
+- Set Xorg `BlankTime`, `StandbyTime`, `SuspendTime`, and `OffTime` to `0`, and strengthen the Chromium startup guard to force screen saver and DPMS timers to zero with per-command diagnostics
+- Start Xorg with `-s 0 -dpms` so the X server begins with screen saver and automatic DPMS power saving disabled
+- Install `fbset` and `dbus-x11` because the startup scripts use `fbset` and `dbus-launch`
+
 ## 1.1.15
 - Add optional presence-based display power control: when `display_power_control` is enabled, any configured `presence_*` entity wakes the display and all configured presence entities being inactive for `display_sleep_delay_seconds` turns it off
 - Add `POST /display/power` to the local Python server, using X11 DPMS with X screensaver blanking as a fallback
