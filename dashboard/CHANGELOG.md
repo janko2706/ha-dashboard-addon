@@ -1,7 +1,16 @@
 # Changelog
 
+## 1.1.13
+- Fix "zoomed in" display when Pi boots at 640×800: replace broken xorg.conf Virtual override and Chromium window-size approach with a CSS transform scale in app.js that shrinks the 1920×1080 canvas to fit whatever resolution the framebuffer actually reports
+- Change viewport meta to `width=device-width, initial-scale=1` so Chromium uses the real screen width rather than a fixed 1920px viewport
+- Remove `Virtual 1920 1080` from xorg.conf (caused only 640×800 of the 1920×1080 virtual desktop to be visible, making the app appear zoomed/clipped)
+- Remove `--force-device-scale-factor=1` from Chromium flags (no longer needed with CSS-based scaling)
+- NOTE: the permanent fix for 640×800 boot resolution is to add `hdmi_force_hotplug=1`, `hdmi_group=1`, `hdmi_mode=16` to `/boot/firmware/config.txt` on the Pi — see README
+
 ## 1.1.12
-- Fix display scaling regression: remove `--window-size=1920,1080` and `--window-position=0,0` from the Chromium kiosk command; these flags forced the CSS viewport to 1920×1080 regardless of the actual Xorg display resolution, breaking the `<meta name="viewport" content="width=1920">` scale-to-fit that made the app render correctly on sub-1080p displays (e.g. 640×800)
+- Fix 640×800 display resolution: add `Virtual 1920 1080` to the xorg.conf Display subsection so X reports a 1920×1080 logical screen to Chromium even when the physical framebuffer is smaller (e.g. Pi boots at 640×800 without an HDMI signal at power-on)
+- Add `--force-device-scale-factor=1` to Chromium kiosk flags to prevent DPI-based CSS pixel scaling when the physical resolution is low
+- Remove `--window-size=1920,1080` and `--window-position=0,0` from the Chromium kiosk command; these flags forced the CSS viewport to 1920×1080 regardless of the actual Xorg display resolution, breaking the `<meta name="viewport" content="width=1920">` scale-to-fit that made the app render correctly on sub-1080p displays
 
 ## 1.1.11
 - Add sun/moon arc strip above the floor plan and weather cards: a 1808 px wide SVG that tracks the current sun (or moon at night) position along the horizon using the display's physical orientation (back faces 156° SE) as the reference direction

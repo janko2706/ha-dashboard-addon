@@ -1,8 +1,24 @@
 #!/command/with-contenv sh
 # vt1 is mandatory — Xorg fails with "Cannot open virtual console" inside Docker without it
-echo "[svc-xorg] Starting Xorg diagnostic build"
+echo "[svc-xorg] Starting Xorg"
 echo "[svc-xorg] Checking display devices"
-ls -l /dev/fb0 /dev/tty0 /dev/tty1 2>&1 || true
+ls -l /dev/fb* /dev/tty0 /dev/tty1 2>&1 || true
+
+# Log framebuffer resolution so we can see what the kernel negotiated with the display.
+echo "[svc-xorg] Framebuffer state:"
+for fb in /dev/fb0 /dev/fb1; do
+    [ -e "$fb" ] && fbset -fb "$fb" -i 2>&1 || true
+done
+
+# Attempt to force /dev/fb0 to 1920x1080 16-bit before Xorg attaches to it.
+# On Pi 4 with KMS this may fail silently — if so the GUARANTEED fix is to add
+# the following three lines to /boot/firmware/config.txt and reboot the Pi:
+#   hdmi_force_hotplug=1
+#   hdmi_group=1
+#   hdmi_mode=16
+fbset -fb /dev/fb0 -g 1920 1080 1920 1080 16 2>/dev/null \
+    && echo "[svc-xorg] Forced /dev/fb0 to 1920x1080x16" \
+    || echo "[svc-xorg] fbset could not resize /dev/fb0 — see /boot/firmware/config.txt note above"
 
 # Hide the underlying Linux console cursor before Xorg starts. With -sharevts
 # the console can remain visible around KMS framebuffer margins.

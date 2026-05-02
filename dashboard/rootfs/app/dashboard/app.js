@@ -2,6 +2,20 @@
  * Floor plan dashboard — app.js
  */
 
+// ── Scale 1920×1080 canvas to fill whatever screen size the browser reports ──
+// The Pi may boot at 640×800 if HDMI is not detected in time (display and Pi
+// share the same power rail). This scales the fixed-size body down to fit
+// rather than clipping or zooming. The permanent fix is hdmi_force_hotplug=1
+// in /boot/firmware/config.txt — see the add-on documentation.
+(function fitToScreen() {
+  function apply() {
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    document.body.style.transform = 'scale(' + s + ')';
+  }
+  apply();
+  window.addEventListener('resize', apply);
+})();
+
 // ── Room layout ────────────────────────────────────────────────────────────
 // climate.temp/hum: SVG source coordinates used to position Chart.js gauge widgets.
 const ROOMS = {

@@ -2,7 +2,8 @@
    Design decisions:
    - No white backgrounds — reduces LCD burn-in on an always-on screen
    - No CSS transitions/animations except the humidity blink (fill-opacity only)
-   - Body hard-locked to 1920×1080 with overflow:hidden — no scrollbars
+   - Body canvas is 1920×1080; html fills the physical viewport and body is
+     CSS-transform scaled to fit (see fitToScreen() in app.js)
    - tabular-nums on clock — prevents width jitter as digits change
    ------------------------------------------------------------------------- */
 
@@ -19,14 +20,22 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
-  width:       1920px;
-  height:      1080px;
+html {
+  width:       100%;
+  height:      100%;
   overflow:    hidden;
   background:  var(--bg-base);
-  color:       var(--text);
-  font-family: "DejaVu Sans", "Noto Sans", sans-serif;
-  font-size:   16px;
+}
+
+body {
+  width:            1920px;
+  height:           1080px;
+  overflow:         hidden;
+  transform-origin: top left;
+  background:       var(--bg-base);
+  color:            var(--text);
+  font-family:      "DejaVu Sans", "Noto Sans", sans-serif;
+  font-size:        16px;
 }
 
 /* ── Top bar ─────────────────────────────────────────────────────────────── */
