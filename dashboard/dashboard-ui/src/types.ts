@@ -12,7 +12,13 @@ export interface DashConfig {
   ha_url: string;
   ha_token: string;
   humidity_threshold?: number;
+  display_power?: DisplayPowerConfig;
   entities?: EntityConfig;
+}
+
+export interface DisplayPowerConfig {
+  enabled: boolean;
+  sleep_delay_seconds: number;
 }
 
 export type EntityConfig = Record<string, EntitySet>;

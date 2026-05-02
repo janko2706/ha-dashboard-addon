@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { DashConfig, ConnectionStatus } from './types';
 import { useHAWebSocket } from './hooks/useHAWebSocket';
+import { useDisplayPower } from './hooks/useDisplayPower';
 import { TopBar } from './components/TopBar';
 import { FloorPlanView } from './components/FloorPlanView';
 import { SunArc } from './components/SunArc';
@@ -26,6 +27,7 @@ export default function App() {
         config?.ha_url ?? '',
         config?.ha_token ?? '',
     );
+    useDisplayPower(config, haStates);
 
     const wsStatus: ConnectionStatus = config ? status : 'connecting';
 

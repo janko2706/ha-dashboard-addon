@@ -3,6 +3,21 @@
 export DISPLAY=:0
 echo "[svc-chromium] Starting Chromium service on DISPLAY=$DISPLAY"
 
+log_xset_state() {
+    LABEL="$1"
+    echo "[svc-chromium] X11 display power state ($LABEL):"
+    xset q 2>&1 | while IFS= read -r line; do
+        echo "[svc-chromium]   $line"
+    done
+}
+
+monitor_xset_state() {
+    while true; do
+        sleep 300
+        log_xset_state "periodic 5min check"
+    done
+}
+
 # Poll until Xorg is accepting connections (up to 60s)
 MAX=120
 CT=0
@@ -15,14 +30,19 @@ until xdpyinfo >/dev/null 2>&1; do
     fi
 done
 echo "[svc-chromium] Xorg ready"
+log_xset_state "before kiosk blanking guard"
 
 # Disable X screen saver blanking and DPMS at runtime.
-# xorg.conf disables the DPMS protocol extension, but the X server's built-in
-# screen-saver timer (default 600 s) is independent — it blanks the framebuffer
-# after 10 min of no input, causing the monitor to report "no signal".
-xset s off
-xset -dpms
-xset s noblank
+# The X server's built-in screen-saver timer defaults to 600 s. That can blank
+# the framebuffer after 10 min of no input, causing the monitor to report
+# "no signal". Keep the DPMS extension available so the dashboard can later
+# force the display off/on when presence-based power control is enabled.
+xset s off 2>&1 || echo "[svc-chromium] WARNING: xset s off failed"
+xset s noblank 2>&1 || echo "[svc-chromium] WARNING: xset s noblank failed"
+xset -dpms 2>&1 || echo "[svc-chromium] WARNING: xset -dpms failed"
+log_xset_state "after kiosk blanking guard"
+monitor_xset_state &
+MONITOR_PID="$!"
 
 # Poll until Python server is accepting connections (up to 60s)
 CT=0
@@ -78,5 +98,6 @@ chromium \
     2>&1
 
 STATUS=$?
+kill "$MONITOR_PID" 2>/dev/null || true
 echo "[svc-chromium] Chromium exited with status $STATUS"
 exit "$STATUS"

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.15
+- Add optional presence-based display power control: when `display_power_control` is enabled, any configured `presence_*` entity wakes the display and all configured presence entities being inactive for `display_sleep_delay_seconds` turns it off
+- Add `POST /display/power` to the local Python server, using X11 DPMS with X screensaver blanking as a fallback
+- Keep the X11 DPMS extension available while still disabling automatic idle blanking at startup
+- Add X11 display power diagnostics to the Chromium startup service: log `xset q` before and after the blanking guard, then every 5 minutes
+- Add server-side display diagnostics for `/display/power` requests, including `xset q` snapshots before and after requested sleep/wake actions
+- Add `GET /display/status` for manual inspection of the current X11 display power state
+- Log the active display power configuration and configured presence entities without exposing the Home Assistant token
+
 ## 1.1.14
 - Revert screen-size workarounds from 1.1.12 and 1.1.13: remove CSS transform scale from app.js, restore `width=1920` viewport meta, and restore `--window-size=1920,1080` / `--window-position=0,0` Chromium flags
 - The proper fix for 640×800 boot resolution remains adding `hdmi_force_hotplug=1`, `hdmi_group=1`, `hdmi_mode=16` to `/boot/firmware/config.txt` on the Pi
